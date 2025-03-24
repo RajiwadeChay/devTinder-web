@@ -22,6 +22,8 @@
 - Refactor code to add constants file + components folder
 - You should not be access other routes without sign in
 - If token is not present, redirect user to signin page
+- Logout Feature
+- Profile
 
 Body
 NavBar
