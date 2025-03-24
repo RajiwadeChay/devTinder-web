@@ -1,8 +1,15 @@
+import { useSelector } from "react-redux";
+import EditProfile from "./EditProfile";
+
 const Profile = () => {
+  const user = useSelector((state) => state.user);
+
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Profile Screen</h1>
-    </div>
+    user && (
+      <div>
+        <EditProfile user={user} />
+      </div>
+    )
   );
 };
 
