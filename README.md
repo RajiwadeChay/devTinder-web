@@ -23,7 +23,8 @@
 - You should not be access other routes without sign in
 - If token is not present, redirect user to signin page
 - Logout Feature
-- Profile
+- Get the feed and add the feed in the store
+- Build the user card on feed
 
 Body
 NavBar
