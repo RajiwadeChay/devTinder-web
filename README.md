@@ -20,6 +20,8 @@
 - Sign In and see if data is coming properly in the store
 - NavBar should update as soon as user signed in
 - Refactor code to add constants file + components folder
+- You should not be access other routes without sign in
+- If token is not present, redirect user to signin page
 
 Body
 NavBar

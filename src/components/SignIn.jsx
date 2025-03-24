@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
 
 const SignIn = () => {
   const [emailId, setEmailId] = useState("stark@gmail.com");
@@ -21,7 +22,7 @@ const SignIn = () => {
   const handleSignIn = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:7777/signin",
+        BASE_URL + "/signin",
         {
           emailId,
           password,
