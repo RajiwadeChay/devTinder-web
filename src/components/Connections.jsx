@@ -16,6 +16,8 @@ const Connections = () => {
 
       if (res?.data?.data?.length > 0) {
         dispatch(addConnections(res?.data?.data));
+      } else {
+        dispatch(addConnections([]));
       }
     } catch (err) {
       console.error(err);

@@ -1,12 +1,14 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequests } from "../utils/requestsSlice";
+import { addRequests, removeRequest } from "../utils/requestsSlice";
 
 const Requests = () => {
   const requests = useSelector((state) => state?.requests);
   const dispatch = useDispatch();
+  const [showToast, setShowToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
 
   const fetchRequests = async () => {
     try {
@@ -14,7 +16,32 @@ const Requests = () => {
         withCredentials: true,
       });
 
-      if (res?.data?.data?.length > 0) dispatch(addRequests(res?.data?.data));
+      if (res?.data?.data?.length > 0) {
+        dispatch(addRequests(res?.data?.data));
+      } else {
+        dispatch(addRequests([]));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const reviewRequest = async (status, _id) => {
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/request/review/${status}/${_id}`,
+        {},
+        { withCredentials: true }
+      );
+      if (res?.data?.data) {
+        dispatch(removeRequest(_id));
+        setToastMsg(res?.data?.message);
+        setShowToast(true);
+        setTimeout(() => {
+          setShowToast(false);
+          setToastMsg("");
+        }, 3000);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -39,7 +66,7 @@ const Requests = () => {
       <h2 className="text-3xl font-bold text-center my-8">Requests</h2>
 
       <div className="flex flex-col items-center">
-        {requests.map((request) => {
+        {requests?.map((request) => {
           const { _id, firstName, lastName, photoUrl, age, gender, about } =
             request?.fromUserId;
 
@@ -61,13 +88,31 @@ const Requests = () => {
                 <p className="text-sm">{about}</p>
               </div>
               <div className="w-[30%] flex justify-around items-center">
-                <button className="btn btn-primary">Ignore</button>
-                <button className="btn btn-secondary">Interested</button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => reviewRequest("rejected", request._id)}
+                >
+                  Ignore
+                </button>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => reviewRequest("accepted", request._id)}
+                >
+                  Interested
+                </button>
               </div>
             </div>
           );
         })}
       </div>
+
+      {showToast && (
+        <div className="toast toast-top toast-center">
+          <div className="alert alert-success">
+            <span>{toastMsg}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
