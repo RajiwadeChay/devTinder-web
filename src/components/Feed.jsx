@@ -19,6 +19,8 @@ const Feed = () => {
 
       if (res?.data?.data?.length > 0) {
         dispatch(addFeed(res?.data?.data));
+      } else {
+        dispatch(addFeed([]));
       }
     } catch (err) {
       console.error(err);
@@ -28,6 +30,16 @@ const Feed = () => {
   useEffect(() => {
     fetchFeed();
   }, []);
+
+  if (!feed) return;
+
+  if (feed?.length === 0) {
+    return (
+      <h2 className="text-3xl font-bold text-center my-8">
+        No New Users Found!
+      </h2>
+    );
+  }
 
   return (
     feed?.length > 0 && (

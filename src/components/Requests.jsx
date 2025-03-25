@@ -26,15 +26,15 @@ const Requests = () => {
     }
   };
 
-  const reviewRequest = async (status, _id) => {
+  const reviewRequest = async (status, userId) => {
     try {
       const res = await axios.post(
-        `${BASE_URL}/request/review/${status}/${_id}`,
+        `${BASE_URL}/request/review/${status}/${userId}`,
         {},
         { withCredentials: true }
       );
       if (res?.data?.data) {
-        dispatch(removeRequest(_id));
+        dispatch(removeRequest(userId));
         setToastMsg(res?.data?.message);
         setShowToast(true);
         setTimeout(() => {
