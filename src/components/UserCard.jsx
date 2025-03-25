@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { BASE_URL } from "../utils/constants";
 import { removeUserFromFeed } from "../utils/feedSlice";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, isEditProfile = false }) => {
   const dispatch = useDispatch();
   const { _id, firstName, lastName, age, gender, about, photoUrl } = user;
 
@@ -41,12 +41,14 @@ const UserCard = ({ user }) => {
           <button
             className="btn btn-primary"
             onClick={() => sendRequest("ignored", _id)}
+            disabled={isEditProfile}
           >
             Ignore
           </button>
           <button
             className="btn btn-secondary"
             onClick={() => sendRequest("interested", _id)}
+            disabled={isEditProfile}
           >
             Interested
           </button>

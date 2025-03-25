@@ -17,18 +17,18 @@ const EditProfile = ({ user }) => {
   const [showToast, setShowToast] = useState(false);
 
   const handleInputChange = (e) => {
-    if (e.target.name === "firstName") {
-      setFirstName(e.target.value);
-    } else if (e.target.name === "lastName") {
-      setLastName(e.target.value);
-    } else if (e.target.name === "photoUrl") {
-      setPhotoUrl(e.target.value);
-    } else if (e.target.name === "age") {
-      setAge(e.target.value);
-    } else if (e.target.name === "gender") {
-      setGender(e.target.value);
+    if (e?.target?.name === "firstName") {
+      setFirstName(e?.target?.value);
+    } else if (e?.target?.name === "lastName") {
+      setLastName(e?.target?.value);
+    } else if (e?.target?.name === "photoUrl") {
+      setPhotoUrl(e?.target?.value);
+    } else if (e?.target?.name === "age") {
+      setAge(e?.target?.value);
+    } else if (e?.target?.name === "gender") {
+      setGender(e?.target?.value);
     } else {
-      setAbout(e.target.value);
+      setAbout(e?.target?.value);
     }
   };
 
@@ -97,7 +97,7 @@ const EditProfile = ({ user }) => {
               <fieldset className="fieldset mb-4">
                 <legend className="fieldset-legend">Age :</legend>
                 <input
-                  type="text"
+                  type="number"
                   className="input"
                   name="age"
                   value={age}
@@ -163,6 +163,7 @@ const EditProfile = ({ user }) => {
         </div>
         <UserCard
           user={{ firstName, lastName, age, gender, about, photoUrl }}
+          isEditProfile={true}
         />
       </div>
 
