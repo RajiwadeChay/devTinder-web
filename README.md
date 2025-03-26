@@ -34,9 +34,30 @@
 - New user sign up
 - E2E Testing
 
+# Rough Work
+
 Body
 NavBar
 Route=/ => Feed
 Route=/login => Login
 Route=/connections => Connections
 Route=/profile => Profile
+
+# Deployment
+
+- Sign Up on AWS
+- Launch instance
+- chmod 400 "devTinder-secret.pem"
+- ssh -i "devTinder-secret.pem" ubuntu@ec2-16-170-250-183.eu-north-1.compute.amazonaws.com
+- Install Node version 23.7.0
+- Git Clone FE + BE app
+- Deploy Frontend
+  - npm i => Install dependencies
+  - npm run build => build app
+  - sudo apt update => system update
+  - sudo apt install nginx => install nginx
+  - sudo systemctl start nginx => start nginx
+  - sudo systemctl enable nginx => enable nginx
+  - Copy code from dist folder (build files) to /var/www/html/ (nginx http server)
+  - sudo scp -r dist/\* /var/www/html/
+  - Enable port :80 of your instance
