@@ -61,3 +61,36 @@ Route=/profile => Profile
   - Copy code from dist folder (build files) to /var/www/html/ (nginx http server)
   - sudo scp -r dist/\* /var/www/html/
   - Enable port :80 of your instance
+- Deploy Backend
+
+  - allowed ec2 instance piblic IP on mongodb server
+  - npm install pm2 -g
+  - pm2 start npm -- start
+  - pm2 logs => shows logs
+  - pm2 flush <processName> => clears logs
+  - pm2 list => lists processes
+  - pm2 stop <processName> => stop the process
+  - pm2 delete <processName> => delete the process
+  - pm2 start npm --name "devtinder-backend" -- start => to start with custome process name
+  - config nginx - /etc/nginx/sites-available/default
+  - restart nginx using cmd : sudo systemctl restart nginx => restart nginx
+  - Modify the BASE_URL in frontend project to "/api"
+
+# nginx config
+
+Domain name = devtinder.com => 16.170.250.183
+
+    Frontend = http://16.170.250.183/ => devtinder.com
+    Backend = http://16.170.250.183:7777/ => devtinder.com/api
+
+    ngnix config :
+    server_name 16.170.250.183;
+
+    location /api/ {
+    proxy_pass http://localhost:7777/;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+    }
