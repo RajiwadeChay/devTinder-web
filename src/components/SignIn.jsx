@@ -80,7 +80,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="card card-border bg-base-300 w-96 justify-self-center mt-8">
+    <div className="card card-border bg-base-300 w-96 justify-self-center mt-8 mb-20">
       <div className="card-body">
         <h2 className="card-title justify-center">
           {isSignIn ? "Sign In" : "Sign Up"}

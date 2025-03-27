@@ -65,7 +65,7 @@ const Requests = () => {
     <div>
       <h2 className="text-3xl font-bold text-center my-8">Requests</h2>
 
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mb-20">
         {requests?.map((request) => {
           const { _id, firstName, lastName, photoUrl, age, gender, about } =
             request?.fromUserId;

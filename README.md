@@ -80,13 +80,15 @@ Route=/profile => Profile
 
 # nginx config
 
-Domain name = devtinder.com => 16.170.250.183
+<!-- Domain name = devtinder.com => 16.170.250.183 : EUR -->
 
-    Frontend = http://16.170.250.183/ => devtinder.com
-    Backend = http://16.170.250.183:7777/ => devtinder.com/api
+Domain name = devtinder.com => 65.1.94.35
+
+    Frontend = http://65.1.94.35/ => devtinder.com
+    Backend = http://65.1.94.35:7777/ => devtinder.com/api
 
     ngnix config :
-    server_name 16.170.250.183;
+    server_name 65.1.94.35;
 
     location /api/ {
     proxy_pass http://localhost:7777/;
@@ -103,5 +105,22 @@ Domain name = devtinder.com => 16.170.250.183
 - sign up on cloudflare & add a new domain name
 - change the nameservers on godaddy and point it to cloudflare
 - wait for sometime till your nameservers are updated ~15 minutes
-- DNS record : A devtinder.in 16.170.250.183
+<!-- - DNS record : A devtinder.in 16.170.250.183 : EUR -->
+- DNS record : A devtinder.in 65.1.94.35
 - Enable SSL for website
+
+# Sending Emails via SES
+
+- Create a IAM user
+- Give Access to AmazonSESFullAccess
+- Amazon SES: Create an Identity
+- Verify your domain name
+- Verify an email address on AWS identity
+- Install AWS SDK - v3
+- Code Example => https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/ses/README.md
+- Setup SESClient
+- Access Credentials should be created in IAM under SecurityCredentials Tab
+- Add the credentials to the env file
+- Write code for SESClient
+- Write code for Sending email address
+- Make the email dynamic by passing more params to the run function
