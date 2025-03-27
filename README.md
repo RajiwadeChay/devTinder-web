@@ -47,9 +47,11 @@ Route=/profile => Profile
 
 - Sign Up on AWS
 - Launch instance
-- chmod 400 "devTinder-secret.pem"
-- ssh -i "devTinder-secret.pem" ubuntu@ec2-16-170-250-183.eu-north-1.compute.amazonaws.com
-- Install Node version 23.7.0
+<!-- - chmod 400 "devTinder-secret.pem" : EUR -->
+- chmod 400 "devTinder-secret-ind.pem"
+<!-- - ssh -i "devTinder-secret.pem" ubuntu@ec2-16-170-250-183.eu-north-1.compute.amazonaws.com : EUR -->
+- ssh -i "devTinder-secret-ind.pem" ubuntu@ec2-65-1-94-35.ap-south-1.compute.amazonaws.com
+- Install Node version 23.7.0 => nvm install 23.7.0
 - Git Clone FE + BE app
 - Deploy Frontend
   - npm i => Install dependencies
