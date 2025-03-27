@@ -94,3 +94,12 @@ Domain name = devtinder.com => 16.170.250.183
     proxy_set_header Host $host;
     proxy_cache_bypass $http_upgrade;
     }
+
+# Adding s custom domain name
+
+- Purchase domain name from godaddy
+- sign up on cloudflare & add a new domain name
+- change the nameservers on godaddy and point it to cloudflare
+- wait for sometime till your nameservers are updated ~15 minutes
+- DNS record : A devtinder.in 16.170.250.183
+- Enable SSL for website
