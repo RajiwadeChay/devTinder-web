@@ -25,7 +25,7 @@ const UserCard = ({ user, isEditProfile = false }) => {
   };
 
   return (
-    <div className="card bg-base-300 w-96 shadow-sm justify-self-center my-8">
+    <div className="card bg-base-300 w-96 shadow-sm justify-self-center my-8 mb-40">
       <figure>
         <img
           src={photoUrl}
