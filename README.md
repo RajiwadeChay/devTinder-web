@@ -137,3 +137,7 @@ Domain name = devtinder.com => 65.1.94.35
 - Amazon SES Bulk Emails
 - Make sendEmail function dyanamic
 - bee-queue & bull npm packages
+
+# Razorpay Payment Gateway Integration
+
+- Sign up on Razorpay & complete KYC
