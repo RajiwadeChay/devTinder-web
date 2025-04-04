@@ -141,3 +141,16 @@ Domain name = devtinder.com => 65.1.94.35
 # Razorpay Payment Gateway Integration
 
 - Sign up on Razorpay & complete KYC
+- Create a UI for premium page
+- Creating an API for create order in backend
+- Added my key and secret in .env file
+- Initialized Razorpay in utils
+- Creating order on Razorpay
+- create Schema and model
+- saved the order in payments collection
+- make the API dynamic
+- Setup Razorpay webhook on your live API
+- Ref => https://github.com/razorpay/razorpay-node/tree/master/documents
+- Ref => https://razorpay.com/docs/payments/server-integration/nodejs/integration-steps/
+- Ref => https://razorpay.com/docs/webhooks/validate-test/
+- Ref => https://razorpay.com/docs/webhooks/payloads/payments/
