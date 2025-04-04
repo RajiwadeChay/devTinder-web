@@ -1,8 +1,26 @@
-import axios from "axios";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
+import axios from "axios";
 
 const Premium = () => {
+  const [isUserPremium, setIsUserPremium] = useState(false);
+
+  useEffect(() => verifyPremiumUser(), []);
+
+  const verifyPremiumUser = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/premium/verify`, {
+        withCredentials: true,
+      });
+
+      if (res.data.data.isPremium) {
+        setIsUserPremium(true);
+      }
+    } catch (err) {
+      console.log("ERROR : ", err.message);
+    }
+  };
+
   const handleBuyClick = async (type) => {
     try {
       const order = await axios.post(
@@ -31,6 +49,7 @@ const Premium = () => {
         theme: {
           color: "#3399cc",
         },
+        handler: verifyPremiumUser, //calls after successful payment
       };
 
       const rzp = new window.Razorpay(options);
@@ -40,7 +59,11 @@ const Premium = () => {
     }
   };
 
-  return (
+  return isUserPremium ? (
+    <h2 className="text-3xl font-bold text-center my-8">
+      You are already premium user!
+    </h2>
+  ) : (
     <div>
       <div className="p-20 flex w-full">
         <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
