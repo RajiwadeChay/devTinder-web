@@ -154,3 +154,9 @@ Domain name = devtinder.com => 65.1.94.35
 - Ref => https://razorpay.com/docs/payments/server-integration/nodejs/integration-steps/
 - Ref => https://razorpay.com/docs/webhooks/validate-test/
 - Ref => https://razorpay.com/docs/webhooks/payloads/payments/
+
+# Real Time Chat using Websocket(Socket.io)
+
+- Build the UI for a chat window on /chat/:targetUserId
+- Setup socket.io in backend
+- npm i sockret.io
