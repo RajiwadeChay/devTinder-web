@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 
 const Chat = () => {
   const { targetUserId } = useParams();
@@ -9,6 +11,34 @@ const Chat = () => {
   const userId = user?._id;
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+
+  const fetchChatMessages = async () => {
+    try {
+      const chat = await axios.get(`${BASE_URL}/chat/${targetUserId}`, {
+        withCredentials: true,
+      });
+
+      // console.log("chat : ", chat?.data?.data?.messages);
+
+      const chatMessages = chat?.data?.data?.messages?.map((msg) => {
+        const { senderId, text } = msg;
+
+        return {
+          firstName: senderId?.firstName,
+          lastName: senderId?.lastName,
+          text,
+        };
+      });
+
+      setMessages(chatMessages);
+    } catch (err) {
+      console.log("fetchChatMessages ERROR : ", err?.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchChatMessages();
+  }, []);
 
   useEffect(() => {
     if (!userId) {
@@ -26,13 +56,16 @@ const Chat = () => {
     });
 
     // Listen sendMessage event
-    socket.on("messageReceived", ({ userId, firstName, text, photoUrl }) => {
-      // console.log(firstName + " Sent Message : " + text);
-      setMessages((prevMsgs) => [
-        ...prevMsgs,
-        { userId, firstName, text, photoUrl },
-      ]);
-    });
+    socket.on(
+      "messageReceived",
+      ({ userId, firstName, lastName, text, photoUrl }) => {
+        // console.log(firstName + " Sent Message : " + text);
+        setMessages((prevMsgs) => [
+          ...prevMsgs,
+          { userId, firstName, lastName, text, photoUrl },
+        ]);
+      }
+    );
 
     // Clean up or disconnect socket
     return () => {
@@ -47,6 +80,7 @@ const Chat = () => {
     // Made socket connection & emit sendMessage event
     socket.emit("sendMessage", {
       firstName: user.firstName,
+      lastName: user.lastName,
       userId,
       targetUserId,
       text: newMessage,
@@ -61,10 +95,16 @@ const Chat = () => {
         <h2>Chat</h2>
       </div>
 
-      <div className="p-4 bg-base-300 border-b-1 border-b-gray-500">
+      <div className="h-[40vh] p-4 bg-base-300 border-b-1 border-b-gray-500 overflow-scroll">
         {messages.map((msg, idx) => {
-          return userId === msg.userId ? (
-            <div key={idx} className="chat chat-end">
+          return (
+            <div
+              key={idx}
+              className={
+                "chat " +
+                (user.firstName === msg.firstName ? "chat-end" : "chat-start")
+              }
+            >
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
                   <img
@@ -74,28 +114,20 @@ const Chat = () => {
                 </div>
               </div>
               <div className="chat-header">
-                {msg.firstName}
+                {msg.firstName} {msg.lastName}
                 <time className="text-xs opacity-50">12:46</time>
               </div>
-              <div className="chat-bubble bg-secondary">{msg.text}</div>
+              <div
+                className={
+                  "chat-bubble " +
+                  (user.firstName === msg.firstName
+                    ? "bg-secondary"
+                    : "bg-primary")
+                }
+              >
+                {msg.text}
+              </div>
               <div className="chat-footer opacity-50">Seen at 12:46</div>
-            </div>
-          ) : (
-            <div key={idx} className="chat chat-start">
-              <div className="chat-image avatar">
-                <div className="w-10 rounded-full">
-                  <img
-                    alt="Tailwind CSS chat bubble component"
-                    src={msg.photoUrl}
-                  />
-                </div>
-              </div>
-              <div className="chat-header">
-                {msg.firstName}
-                <time className="text-xs opacity-50">12:45</time>
-              </div>
-              <div className="chat-bubble bg-primary">{msg.text}</div>
-              <div className="chat-footer opacity-50">Delivered</div>
             </div>
           );
         })}

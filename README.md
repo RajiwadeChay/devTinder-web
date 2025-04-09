@@ -160,3 +160,14 @@ Domain name = devtinder.com => 65.1.94.35
 - Build the UI for a chat window on /chat/:targetUserId
 - Setup socket.io in backend
 - npm i sockret.io
+- Setup frontend socket.io-client
+- Initialise the chat
+- Create Socket Connection
+- Listen to events
+- Homework : Improve the UI
+- Homework : Fix security bug => auth in web sockets
+- Homework : Fix bug => If I'm not friend, then I should not be able to send message
+- Homework : Feat => Show green symbol when online - [lsat seen 2 hours ago]
+- Homework : Limit messages when fetching from DB
+- Project Idea : Tic Tac Toe game
+- Project Idea : Chess
